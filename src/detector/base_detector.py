@@ -16,7 +16,12 @@ class Detection:
     bbox_xyxy: Tuple[float, float, float, float]  # [x1, y1, x2, y2]
     distance_m: Optional[float] = None            # Estimated Euclidean distance
     distance_z_m: Optional[float] = None          # Estimated longitudinal depth
-    offset_x_m: Optional[float] = None            # Lateral offset
+    offset_x_m: Optional[float] = None            # Lateral offset in camera frame
+    variance: Optional[float] = None              # Measurement variance (sigma^2)
+    std_dev_m: Optional[float] = None             # Uncertainty standard deviation
+    robot_x_m: Optional[float] = None             # Distance in robot base frame (+X forward)
+    robot_y_m: Optional[float] = None             # Offset in robot base frame (+Y left)
+    robot_z_m: Optional[float] = None             # Height in robot base frame (+Z up)
     track_id: Optional[int] = None
 
     @property

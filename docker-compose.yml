@@ -1,0 +1,19 @@
+version: "3.8"
+
+services:
+  perception-node:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: eric-robotics/perception-pipeline:1.0.0
+    container_name: robotics_perception_node
+    restart: unless-stopped
+    environment:
+      - PYTHONUNBUFFERED=1
+      - MPLCONFIGDIR=/tmp/matplotlib
+    volumes:
+      - ./data:/app/data:ro
+      - ./output:/app/output:rw
+      - ./configs:/app/configs:ro
+      - ./weights:/app/weights:ro
+    command: python deploy_node.py --source data/bdd100k_sample/images --output output/docker_run

@@ -64,6 +64,8 @@ class CameraExtrinsics:
     pitch_deg: float = 2.5       # Pitch angle (+ downwards toward ground)
     roll_deg: float = 0.0        # Roll angle
     yaw_deg: float = 0.0         # Yaw angle relative to robot forward heading
+    x_offset_m: float = 0.15     # Forward offset of camera from robot base center (meters)
+    y_offset_m: float = 0.0      # Lateral offset of camera from robot base center (meters)
 
     @property
     def pitch_rad(self) -> float:
@@ -94,6 +96,36 @@ class CameraExtrinsics:
         ])
         return Rz @ Ry @ Rx
 
+    def transform_camera_to_robot(self, x_cam: float, y_cam: float, z_cam: float) -> Tuple[float, float, float]:
+        """
+        Transform 3D point from Camera Optical Frame to Robot Base Frame (ROS REP-103 convention):
+        - Camera Optical Frame: +X right, +Y down, +Z forward (along optical axis).
+        - Robot Base Frame (base_link): +X forward, +Y left, +Z up (from ground footprint).
+        """
+        # Account for downward camera pitch:
+        theta = self.pitch_rad
+        # Forward in world = Z_cam * cos(theta) - Y_cam * sin(theta) + x_offset
+        x_robot = z_cam * np.cos(theta) - y_cam * np.sin(theta) + self.x_offset_m
+        # Lateral left in robot = -X_cam + y_offset
+        y_robot = -x_cam + self.y_offset_m
+        # Height above ground in robot = height_m - (Y_cam * cos(theta) + Z_cam * sin(theta))
+        z_robot = self.height_m - (y_cam * np.cos(theta) + z_cam * np.sin(theta))
+
+        return float(x_robot), float(y_robot), float(z_robot)
+
+    def transform_robot_to_camera(self, x_robot: float, y_robot: float, z_robot: float) -> Tuple[float, float, float]:
+        """Transform 3D point from Robot Base Frame to Camera Optical Frame."""
+        theta = self.pitch_rad
+        dx = x_robot - self.x_offset_m
+        dy = y_robot - self.y_offset_m
+        dz = z_robot - self.height_m
+
+        x_cam = -dy
+        y_cam = -dz * np.cos(theta) - dx * np.sin(theta)
+        z_cam = dx * np.cos(theta) - dz * np.sin(theta)
+
+        return float(x_cam), float(y_cam), float(z_cam)
+
 
 def load_camera_from_yaml(config_path: str) -> Tuple[CameraIntrinsics, CameraExtrinsics]:
     """Load camera intrinsics and extrinsics from a YAML configuration file."""
@@ -121,6 +153,8 @@ def load_camera_from_yaml(config_path: str) -> Tuple[CameraIntrinsics, CameraExt
         pitch_deg=float(extr.get("pitch_deg", 2.5)),
         roll_deg=float(extr.get("roll_deg", 0.0)),
         yaw_deg=float(extr.get("yaw_deg", 0.0)),
+        x_offset_m=float(extr.get("x_offset_m", 0.15)),
+        y_offset_m=float(extr.get("y_offset_m", 0.0)),
     )
 
     return intrinsics, extrinsics

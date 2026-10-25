@@ -44,6 +44,8 @@ env/
 runs/
 dataset/
 data/processed_robotics/
+data/bdd100k_yolo/
+data/processed_yolo/
 *.cache
 data/raw/
 !data/bdd100k_sample/
@@ -55,3 +57,7 @@ data/raw/
 .coverage
 htmlcov/
 *.log
+
+# Reference materials (to be excluded from final repository)
+Reference_code/
+output/

@@ -120,11 +120,16 @@ class YOLODetector(BaseDetector):
 
             # Estimate distance
             if self.distance_estimator is not None:
-                dist_res = self.distance_estimator.estimate(display_name, (x1, y1, x2, y2))
+                dist_res = self.distance_estimator.estimate(display_name, (x1, y1, x2, y2), track_id=det.track_id)
                 if dist_res is not None:
                     det.distance_m = dist_res.distance_m
                     det.distance_z_m = dist_res.distance_z_m
                     det.offset_x_m = dist_res.offset_x_m
+                    det.variance = dist_res.variance
+                    det.std_dev_m = dist_res.std_dev_m
+                    det.robot_x_m = dist_res.robot_x_m
+                    det.robot_y_m = dist_res.robot_y_m
+                    det.robot_z_m = dist_res.robot_z_m
 
             detections.append(det)
 
@@ -202,11 +207,16 @@ class YOLODetector(BaseDetector):
                 )
 
                 if self.distance_estimator is not None:
-                    dist_res = self.distance_estimator.estimate(display_name, (x1, y1, x2, y2))
+                    dist_res = self.distance_estimator.estimate(display_name, (x1, y1, x2, y2), track_id=det.track_id)
                     if dist_res is not None:
                         det.distance_m = dist_res.distance_m
                         det.distance_z_m = dist_res.distance_z_m
                         det.offset_x_m = dist_res.offset_x_m
+                        det.variance = dist_res.variance
+                        det.std_dev_m = dist_res.std_dev_m
+                        det.robot_x_m = dist_res.robot_x_m
+                        det.robot_y_m = dist_res.robot_y_m
+                        det.robot_z_m = dist_res.robot_z_m
 
                 detections.append(det)
 

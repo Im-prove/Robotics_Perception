@@ -1,0 +1,16 @@
+.git
+.gitignore
+.venv
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache
+runs
+output
+.system_generated
+Reference_code
+dataset/BDD100K_88mb/train/img
+dataset/BDD100K_88mb/val/img
+dataset/BDD100K_88mb/test/img
+*.log

@@ -7,6 +7,8 @@ from dataclasses import dataclass, asdict
 from pathlib import Path
 from typing import List, Dict, Any, Optional
 import os
+import tempfile
+os.environ.setdefault("MPLCONFIGDIR", os.path.join(tempfile.gettempdir(), "matplotlib_cache"))
 import time
 import numpy as np
 import pandas as pd
@@ -179,8 +181,10 @@ class EdgeBenchmarkSuite:
 
         return "\n".join(lines)
 
-    def plot_comparison(self, output_png_path: str = "output/benchmark_comparison.png") -> str:
+    def plot_comparison(self, output_png_path: str = "output/benchmark_comparison.png", output_path: Optional[str] = None) -> str:
         """Generate a visual before-vs-after comparison figure."""
+        if output_path is not None:
+            output_png_path = output_path
         df = self.to_dataframe()
         if df.empty:
             return ""
