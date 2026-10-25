@@ -3,6 +3,7 @@
 #  Autonomous Robotics Perception & Stochastic Distance Fusion
 ### *Production-Grade Computer Vision Stack for Autonomous Mobile Robots (AMR)*
 
+[![Google Colab Deployment](https://img.shields.io/badge/Google%20Colab-Live%20Deployment%20Notebook-F9AB00?style=for-the-badge&logo=googlecolab&logoColor=white)](https://colab.research.google.com/drive/1kiJS-AjN2fkWmoQCo1RIFpoY1rP529Vg?usp=sharing)
 [![Python 3.10+](https://img.shields.io/badge/Python-3.10%20%7C%203.11-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
 [![UV Package Manager](https://img.shields.io/badge/UV-Ultra--Fast%20Env-DE5FE9?style=for-the-badge&logo=astral&logoColor=white)](https://github.com/astral-sh/uv)
 [![Docker](https://img.shields.io/badge/Docker-Ready%20Container-2496ED?style=for-the-badge&logo=docker&logoColor=white)](https://www.docker.com/)
@@ -369,19 +370,20 @@ You can deploy and run this perception pipeline **100% free** across multiple cl
 
 </div>
 
-### 1. Google Colab (Free T4 GPU)
-1. Open [Google Colab](https://colab.research.google.com/) and create a new notebook.
-2. Select **Runtime $\rightarrow$ Change runtime type $\rightarrow$ T4 GPU**.
-3. Run the following cells:
-   ```bash
-   # Clone repository and install uv
-   !git clone <repository_url>
-   %cd Project_Eric_Robotic_ML_assessment
-   !curl -LsSf https://astral.sh/uv/install.sh | sh
-   !uv pip install --system -r requirements.txt
+### 1. Google Colab (Live Free Cloud Deployment)
 
-   # Run inference pipeline on GPU
-   !python deploy_node.py --source data/bdd100k_sample/images --device cuda --output output/colab_run
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1kiJS-AjN2fkWmoQCo1RIFpoY1rP529Vg?usp=sharing)
+
+> **🚀 One-Click Interactive Deployment:** Access our comprehensive deployment notebook with all real-time inference outputs, Bird's-Eye View (BEV) maps, edge benchmarks, and quantitative evaluation charts pre-rendered:  
+> **👉 [Open Google Colab Live Deployment Notebook](https://colab.research.google.com/drive/1kiJS-AjN2fkWmoQCo1RIFpoY1rP529Vg?usp=sharing)**
+
+To run live or replicate experiments on a free Tesla T4 GPU:
+1. Open the [Google Colab Deployment Notebook](https://colab.research.google.com/drive/1kiJS-AjN2fkWmoQCo1RIFpoY1rP529Vg?usp=sharing).
+2. Select **Runtime $\rightarrow$ Change runtime type $\rightarrow$ T4 GPU**.
+3. Run all cells or execute individual test scenes:
+   ```bash
+   # Run live robotics deployment node on GPU
+   python deploy_node.py --source data/bdd100k_sample/images --device cuda --output output/colab_run
    ```
 
 ### 2. Hugging Face Spaces (Paid Docker Hosting)

@@ -39,18 +39,18 @@ env/
 *.swo
 
 # Model checkpoints and dataset downloads
-*.pt
-*.onnx
-runs/
-dataset/
-data/processed_robotics/
-data/bdd100k_yolo/
-data/processed_yolo/
-*.cache
-data/raw/
-!data/bdd100k_sample/
-!data/sample_video/
-!data/camera_calibration.yaml
+# *.pt
+# *.onnx
+# runs/
+# dataset/
+# data/processed_robotics/
+# data/bdd100k_yolo/
+# data/processed_yolo/
+# *.cache
+# data/raw/
+# !data/bdd100k_sample/
+# !data/sample_video/
+# !data/camera_calibration.yaml
 
 # Testing & logs
 .pytest_cache/
@@ -60,4 +60,4 @@ htmlcov/
 
 # Reference materials (to be excluded from final repository)
 Reference_code/
-output/
+# output/

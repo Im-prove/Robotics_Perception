@@ -1,0 +1,8 @@
+names:
+  0: Cone
+  1: Barrier
+  2: Stop Sign
+nc: 3
+path: C:\Users\mauli\OneDrive\Desktop\Ranjeet\Project_Eric_Robotic_ML_assessment\data\processed_robotics
+train: images/train
+val: images/val
