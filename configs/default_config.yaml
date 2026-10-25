@@ -1,0 +1,58 @@
+# Navigation Object Detection & Distance Estimation Configuration
+
+project:
+  name: "Robotic Object Detection and Distance Estimation"
+  version: "1.0.0"
+
+# Target classes of interest for navigation
+target_classes:
+  cone:
+    id: 0
+    name: "Cone"
+    real_height_m: 0.70    # Standard highway/industrial traffic cone height (0.45m - 0.75m)
+    real_width_m: 0.38     # Base diameter
+    min_valid_dist_m: 0.3
+    max_valid_dist_m: 25.0
+    color: [0, 165, 255]   # BGR orange
+  barrier:
+    id: 1
+    name: "Barrier"
+    real_height_m: 0.90    # Standard construction barricade / jersey barrier height
+    real_width_m: 1.80     # Standard length / width
+    min_valid_dist_m: 0.5
+    max_valid_dist_m: 35.0
+    color: [0, 0, 255]     # BGR red
+  stop_sign:
+    id: 2
+    name: "Stop Sign"
+    real_height_m: 0.75    # Standard 30-inch MUTCD stop sign diameter
+    real_width_m: 0.75     # Width
+    min_valid_dist_m: 0.5
+    max_valid_dist_m: 50.0
+    color: [30, 30, 220]   # BGR crimson red
+
+# Model and inference options
+model:
+  pretrained_weights: "weights/robotics_best.pt"
+  lightweight_backbone: "yolo11n.pt"
+  input_size: 640
+  conf_threshold: 0.35
+  iou_threshold: 0.45
+  device: "cpu" # Options: cpu, cuda
+
+# Distance estimation method
+distance_estimation:
+  primary_method: "fusion" # Options: pinhole_height, pinhole_width, ground_plane, fusion
+  fusion_weights:
+    pinhole: 0.60
+    ground_plane: 0.40
+  smoothing:
+    enabled: true
+    ema_alpha: 0.3 # Exponential moving average for temporal tracking stability
+
+# Edge optimization settings
+optimization:
+  benchmark_iterations: 100
+  warmup_iterations: 10
+  quantization_backends: ["pytorch_dynamic_int8", "onnx_int8", "fp16"]
+  pruning_sparsity: 0.30

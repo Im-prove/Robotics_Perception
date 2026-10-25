@@ -1,0 +1,29 @@
+[project]
+name = "robotic-object-detection-distance-estimation"
+version = "1.0.0"
+description = "Robotics Navigation: Object Detection, Monocular Distance Estimation, and Edge Optimization (Quantization & Pruning) with BEV Homography, Epipolar Stereo, and Optical Flow"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "torch>=2.0.0",
+    "torchvision>=0.15.0",
+    "ultralytics>=8.0.0",
+    "opencv-python-headless>=4.8.0",
+    "onnx>=1.14.0",
+    "onnxruntime>=1.15.0",
+    "numpy>=1.24.0",
+    "scipy>=1.10.0",
+    "matplotlib>=3.7.0",
+    "pandas>=2.0.0",
+    "pyyaml>=6.0",
+    "tqdm>=4.65.0",
+    "pytest>=7.4.0",
+]
+
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]

@@ -1,0 +1,46 @@
+# Camera Intrinsics and Extrinsics Configuration for Robotics Navigation
+camera:
+  name: "Robotics_RGB_Front_Camera"
+  image_width: 1280
+  image_height: 720
+
+  # Intrinsics Matrix K:
+  # [[fx,  0, cx],
+  #  [ 0, fy, cy],
+  #  [ 0,  0,  1]]
+  intrinsics:
+    fx: 800.0       # Focal length in x pixels
+    fy: 800.0       # Focal length in y pixels
+    cx: 640.0       # Principal point x
+    cy: 360.0       # Principal point y
+    k1: 0.0         # Radial distortion coefficient 1
+    k2: 0.0         # Radial distortion coefficient 2
+    p1: 0.0         # Tangential distortion coefficient 1
+    p2: 0.0         # Tangential distortion coefficient 2
+
+  # Extrinsics relative to robot ground footprint (base_link)
+  extrinsics:
+    # Camera mounting height above ground plane in meters
+    height_m: 0.65
+    # Pitch angle in degrees (positive is pitched downwards towards ground)
+    pitch_deg: 2.5
+    # Roll and Yaw angles in degrees
+    roll_deg: 0.0
+    yaw_deg: 0.0
+
+  # Stereo Setup Parameters (for Epipolar Geometry / Disparity)
+  stereo:
+    baseline_m: 0.12        # 120 mm stereo baseline
+    focal_length_px: 800.0
+    min_disparity: 0
+    num_disparities: 64     # Must be divisible by 16
+    block_size: 9
+
+  # Bird's Eye View (BEV) Homography parameters
+  bev:
+    ground_roi:
+      # Region in front of robot in meters [x_min, x_max, y_min, y_max]
+      # x is lateral (-left, +right), y is longitudinal (forward)
+      x_range: [-3.0, 3.0]
+      y_range: [0.5, 12.0]
+    output_resolution: [600, 600] # [height, width] of BEV map
